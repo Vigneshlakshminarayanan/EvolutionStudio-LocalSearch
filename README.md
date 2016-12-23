@@ -14,7 +14,7 @@ Displays a list of verticals nearby your location that matches your cateogory. S
 [![SS-New.png](https://s24.postimg.org/5bkqab8o5/SS_New.png)](https://postimg.org/image/49ajrrpup/)
 
 ## Code Example
-A list of essential verticals around you.
+A list of essential categories around you.
 
 **let listOfVerticals:NSArray = ["Movies", "Education", "Hospital", "ATM", "Petrol Bunk", "Restaurants", "Bar", "Coffee", "Dinner"]**
 
@@ -22,7 +22,7 @@ Make a local search to find a list of verticals matching your category
 
 **localSearchRequest.naturalLanguageQuery = sharedInstance.selectedEvent as String**
 
-Displays a list of all verticals on **MKMapView**
+Displays the search query on **MKMapView** along with **MKPlaceMark** details.
 
 ## Installation
 
