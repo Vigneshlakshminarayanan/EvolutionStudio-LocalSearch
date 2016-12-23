@@ -30,7 +30,7 @@ Can be a Direct Download or Cloning.
 
 ## Contributors
 
-Vignesh Lakshminarayanan
+- Vignesh Lakshminarayanan
 
 ## Licence
 
