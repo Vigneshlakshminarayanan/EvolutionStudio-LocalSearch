@@ -11,7 +11,7 @@ EvolutionStudio has thought about bringing you the ultimate solution for your pr
 
 Displays a list of verticals nearby your location that matches your cateogory. Searches can be indexed to Spotlight search & can be accessed from homescreen.
 
-[![Simulator Screen Shot 23-Dec-2016, 7.47.26 PM.png](https://s29.postimg.org/h5qqds807/Simulator_Screen_Shot_23_Dec_2016_7_47_26_PM.png)](https://postimg.org/image/78fpkq0eb/)
+[![SS-New.png](https://s24.postimg.org/5bkqab8o5/SS_New.png)](https://postimg.org/image/49ajrrpup/)
 
 ## Code Example
 A list of essential verticals around you.
