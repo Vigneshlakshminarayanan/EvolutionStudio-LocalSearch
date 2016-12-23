@@ -4,6 +4,15 @@ A Monkey gradually transforms to a well mannered human. At one stage, we all Evo
 How about when you are lost in middle of the town & you are in need of essential verticals around you. 
 How convenient would it be, when you get all the information you request for at a click of a button. 
 EvolutionStudio has thought about bringing you the ultimate solution for your problem through this LocalSearch App.
+
+## ScreenShot
+
+[![Simulator Screen Shot 22-Dec-2016, 8.51.52 PM.png](https://s30.postimg.org/4hzt58m41/Simulator_Screen_Shot_22_Dec_2016_8_51_52_PM.png)](https://postimg.org/image/9gnbjrpwt/)
+
+Displays a list of verticals nearby your location that matches your cateogory
+
+[![Simulator Screen Shot 23-Dec-2016, 7.18.59 AM.png](https://s27.postimg.org/ont93h1dv/Simulator_Screen_Shot_23_Dec_2016_7_18_59_AM.png)](https://postimg.org/image/ltq3q0z7j/)
+
 ## Code Example
 A list of essential verticals around you.
 
