@@ -8,22 +8,33 @@
 
 import UIKit
 import MapKit
+import CoreData
+import CoreSpotlight
+import MobileCoreServices
 
-class VerticalsViewController: UIViewController,MKMapViewDelegate {
+class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResultsControllerDelegate {
 
-    @IBOutlet weak var mapVw: MKMapView!
     var pointAnnotation:MKPointAnnotation!
     var pinAnnotationView:MKPinAnnotationView!
-    var searchResults = NSMutableArray()
-    let sharedIns = SharedInstance.sharedInstance
-    @IBOutlet weak var containerVw: UIView!
-    @IBOutlet weak var titleLabl: UILabel!
-    @IBOutlet weak var addrsVw: UITextView!
     
-    @IBOutlet weak var phoneNumbe: UILabel!
-    @IBOutlet weak var distnaceLbl: UILabel!
+    var searchResults = NSMutableArray()  //** MKLocalSearch Results Storage
+    let sharedInstance = SharedInstance.sharedInstance //** Shared Instance
+    
+    @IBOutlet weak var mapVw: MKMapView!
+    @IBOutlet weak var containerVw: UIView!
+    @IBOutlet weak var titleLabl: UILabel!  //** Base Container Title Label
+    @IBOutlet weak var addrsVw: UITextView! //** Base Container Address TextView
+    @IBOutlet weak var phoneNumbe: UILabel! //** Base Container Phone Number Label
+    @IBOutlet weak var distnaceLbl: UILabel! //** Base Container Distance Label
+   
+    var managedObjectContext: NSManagedObjectContext? = nil  //** CoreData ManagedObjectContext
+    var _fetchedResultsController: NSFetchedResultsController? = nil //** FRC
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        managedObjectContext = appDelegate.managedObjectContext
         
         mapVw.showsUserLocation = true
         mapVw.delegate = self
@@ -35,45 +46,82 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate {
         addrsVw.sizeToFit()
         containerVw.alpha = 0;
         
-        //** Map Span & Region
         let span = MKCoordinateSpanMake(0.075, 0.075)
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: sharedIns.latitudeValue, longitude: sharedIns.longiValue), span: span)
+        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: sharedInstance.currentLocationLatValue, longitude: sharedInstance.currentLocationLongValue), span: span)
         mapVw.setRegion(region, animated: true)
         
+        if !sharedInstance.isFromIndexing {
+            
+            makeALocalSearch()
+            containerVw.alpha = 0
+            
+        } else {
+            
+            let fetchRequest = NSFetchRequest(entityName: "FavouritesEntity")
+            fetchRequest.predicate = NSPredicate(format: "uniqueID = %@", sharedInstance.selectedVerticalUniqueIDFromIndexing)
+
+                do {
+                    let results = try managedObjectContext!.executeFetchRequest(fetchRequest)
+                    let  favts = results as! [FavouritesEntity]
+                
+                    for entity in favts {
+                    print(entity.address)
+                    titleLabl.text = entity.title
+                    addrsVw.text = entity.address
+                   
+                    if entity.phoneNumber != nil {
+                        distnaceLbl.text = entity.phoneNumber
+                    }
+                        
+                    let latV:Double = entity.latitude
+                    let longV:Double = entity.longtitude
+                    self.pointAnnotation = MKPointAnnotation()
+                    self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude:latV, longitude:longV)
+                    self.pointAnnotation.title = entity.title
+                    self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
+                    
+                    self.mapVw.centerCoordinate = self.pointAnnotation.coordinate
+                    self.mapVw.addAnnotation(self.pinAnnotationView.annotation!)
+                    containerVw.alpha = 0.8
+                }
+            } catch let error as NSError {
+                print(error.description)
+            }
+        }
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    func makeALocalSearch() {
         
         let localSearchRequest = MKLocalSearchRequest()
-        localSearchRequest.naturalLanguageQuery = sharedIns.cateogorySelected as String
-        localSearchRequest.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(sharedIns.latitudeValue, sharedIns.longiValue),span)
+        let span = MKCoordinateSpanMake(0.075, 0.075)
+        localSearchRequest.naturalLanguageQuery = sharedInstance.selectedEvent as String
+        localSearchRequest.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(sharedInstance.currentLocationLatValue, sharedInstance.currentLocationLongValue),span)
         let localSearch = MKLocalSearch(request: localSearchRequest)
         localSearch.startWithCompletionHandler { (localSearchResponse, error) in
+          
             if localSearchResponse != nil{
                 
-                print(localSearchResponse?.boundingRegion)
-                print(localSearchResponse?.mapItems)
-                
                 for mapitem in (localSearchResponse?.mapItems)!{
+                    
                     self.searchResults.addObject(mapitem)
                 }
                 
                 self.showInMap()
             }}
-        
-        // Do any additional setup after loading the view.
     }
 
     
     func showInMap() {
         
+        print("\(searchResults.count) results found for \(sharedInstance.selectedEvent)")
+
         for mapItem in self.searchResults {
-            
+          
             let currentMapItem = mapItem as! MKMapItem
-            print(currentMapItem.placemark.coordinate.latitude)
-            print(currentMapItem.placemark.coordinate.longitude)
-            
             let latV:Double = currentMapItem.placemark.coordinate.latitude
             let longV:Double = currentMapItem.placemark.coordinate.longitude
-
-            
             self.pointAnnotation = MKPointAnnotation()
             self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude:latV, longitude:longV)
             self.pointAnnotation.title = currentMapItem.placemark.name
@@ -83,28 +131,29 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate {
             self.mapVw.addAnnotation(self.pinAnnotationView.annotation!)
             
             if currentMapItem.isCurrentLocation {
+              
                 self.mapVw.selectAnnotation(self.pointAnnotation, animated: true)
-
             }}
-    }
+        }
     
     
+    // MARK: MKMapView Delegate
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-        let annoView = MKAnnotationView()
-        annoView.frame = CGRectMake(0,0,20,20)
-        annoView.backgroundColor = UIColor.clearColor()
+        let customAnnotationView = MKAnnotationView()
+        customAnnotationView.frame = CGRectMake(0,0,20,20)
+        customAnnotationView.backgroundColor = UIColor.clearColor()
         
-        let imgVw = UIImageView()
-        imgVw.tag = 5
-        imgVw.frame = annoView.bounds
-        imgVw.contentMode = .ScaleAspectFit
-        imgVw.image = UIImage(named: "annotationImg")
-        annoView.addSubview(imgVw)
-        annoView.userInteractionEnabled = true
-        annoView.canShowCallout = true
+        let pinImgViw = UIImageView()
+        pinImgViw.tag = 5
+        pinImgViw.frame = customAnnotationView.bounds
+        pinImgViw.contentMode = .ScaleAspectFit
+        pinImgViw.image = UIImage(named: "annotationImg")
+        customAnnotationView.addSubview(pinImgViw)
+        customAnnotationView.userInteractionEnabled = true
+        customAnnotationView.canShowCallout = true
         
-        return annoView
+        return customAnnotationView
     }
     
     
@@ -114,68 +163,143 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate {
         titleLabl.text = (view.annotation?.title)!
         
         for mapItem in self.searchResults {
+           
             let currentMapItem = mapItem as! MKMapItem
             if currentMapItem.name == (view.annotation?.title)! {
-                addrsVw.text = currentMapItem.placemark.title
+                    addrsVw.text = currentMapItem.placemark.title
                 
-                let firstLoc = CLLocation(latitude: sharedIns.latitudeValue, longitude: sharedIns.longiValue)
-                let secondLoc = CLLocation(latitude: currentMapItem.placemark.coordinate.latitude, longitude:currentMapItem.placemark.coordinate.longitude)
-                let distance = firstLoc.distanceFromLocation(secondLoc)
-                print("Distance Between Me & Res\(distance/1000) kms")
+                    let firstLoc = CLLocation(latitude: sharedInstance.currentLocationLatValue, longitude: sharedInstance.currentLocationLongValue)
+                    let secondLoc = CLLocation(latitude: currentMapItem.placemark.coordinate.latitude, longitude:currentMapItem.placemark.coordinate.longitude)
+                    let distance = firstLoc.distanceFromLocation(secondLoc)
+                    //print("Distance Between Me & Res\(distance/1000) kms")
+                    phoneNumbe.text = String(format: "%.1f kms", distance/1000)
                 
-                phoneNumbe.text = String(format: "%.1f kms", distance/1000)
-                
-                if (currentMapItem.phoneNumber != nil) {
-                    distnaceLbl.text = String(currentMapItem.phoneNumber! as String)
-                }else{
+                        if (currentMapItem.phoneNumber != nil) {
+                                distnaceLbl.text = String(currentMapItem.phoneNumber! as String)
+                            }else{
                     distnaceLbl.text = ""
-                }}
+                    }
+            }
+            
+            sharedInstance.setSelectedVerticalsLocation(currentMapItem.placemark.coordinate.latitude, long: currentMapItem.placemark.coordinate.longitude)
         }
         
         UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseIn, animations: {
+           
             self.containerVw.alpha = 0.8
             }) { (true) in
                 
+            }
+    }
+    
+    
+    var fetchedResultsController: NSFetchedResultsController {
+       
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController!
         }
+        
+        let fetchRequest = NSFetchRequest()
+        let entity = NSEntityDescription.entityForName("FavouritesEntity", inManagedObjectContext: self.managedObjectContext!)
+        fetchRequest.entity = entity
+        fetchRequest.fetchBatchSize = 20
+        
+        let sortDescriptor = NSSortDescriptor(key: "timeStamp", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName:nil)
+        aFetchedResultsController.delegate = self
+        _fetchedResultsController = aFetchedResultsController
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+            
+        } catch {
+
+            abort()
+        }
+        
+        return _fetchedResultsController!
+    }
+    
+    // MARK: FRC Delegate
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        
+    }
+    
+    @IBAction func addToIndex(sender: AnyObject) {
+        
+        let context = self.fetchedResultsController.managedObjectContext
+        let entity = self.fetchedResultsController.fetchRequest.entity!
+        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as! FavouritesEntity
+        
+        let date = NSDate()
+        newManagedObject.setValue(date, forKey: "timeStamp")
+        newManagedObject.title = titleLabl.text
+        newManagedObject.address = addrsVw.text
+        newManagedObject.phoneNumber = distnaceLbl.text! as String
+        newManagedObject.uniqueID = String(format: "%@",date)
+        newManagedObject.latitude = sharedInstance.selectedVerticalLati
+        newManagedObject.longtitude = sharedInstance.selectedVerticalLongi
+        
+        // Save the context.
+        do {
+            try context.save()
+            
+        } catch {
+            
+            abort()
+        }
+        
+        //** Indexing
+        
+        let activity = NSUserActivity(activityType:String(format: "%@",date))
+        activity.title = titleLabl.text
+        //activity.userInfo = userActivityUserInfo
+        activity.keywords = [sharedInstance.selectedEvent as String, titleLabl.text!]
+        activity.contentAttributeSet = attributeSet
+        activity.eligibleForSearch = true
+        userActivity = activity
+        print("Item is Indexed. You can now search for \(sharedInstance.selectedEvent) in Spotlight Search of your device.")
+        let alert=UIAlertController(title: "LocalSearch", message: "Item is Indexed. You can now search for \(sharedInstance.selectedEvent) in Spotlight Search & get the details", preferredStyle: .Alert);
+
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default)
+        { action -> Void in
+           
+            NSThread.detachNewThreadSelector(Selector("suspend"), toTarget: UIApplication.sharedApplication(), withObject: nil)
+
+        })
+        self.presentViewController(alert, animated: true, completion: {
+            
+        })
+
     }
     
     @IBAction func showDirections(sender: AnyObject){
         
-        let request:MKDirectionsRequest = MKDirectionsRequest()
-        let source = self.searchResults[0] as! MKMapItem
-        let destination = self.searchResults[1] as! MKMapItem
-
-        
-        // source and destination are the relevant MKMapItems
-        request.source = source
-        request.destination = destination
-        
-        // Specify the transportation type
-        request.transportType = MKDirectionsTransportType.Automobile;
-        
-        // If you're open to getting more than one route,
-        // requestsAlternateRoutes = true; else requestsAlternateRoutes = false;
-        request.requestsAlternateRoutes = true
-        
-        let directions = MKDirections(request: request)
-        
-        directions.calculateDirectionsWithCompletionHandler ({
-            (response: MKDirectionsResponse?, error: NSError?) in
-            
-            if error == nil {
-                let directionsResponse:MKDirectionsResponse = response!
-                // Get whichever currentRoute you'd like, ex. 0
-                let route = directionsResponse.routes[0] as MKRoute
-                print(route)
+    }
+    
+    var attributeSet: CSSearchableItemAttributeSet {
+     
+        let attributeSet = CSSearchableItemAttributeSet(
+        itemContentType: kUTTypeContact as String)
+        attributeSet.title = sharedInstance.selectedEvent as String
+            if (distnaceLbl.text != nil) {
+                attributeSet.phoneNumbers = [distnaceLbl.text! as String]
             }
-        })
-    }
-    
-    
-    override func viewWillAppear(animated: Bool) {
+            
+        attributeSet.contentDescription = "\(addrsVw.text)\n\(distnaceLbl.text)"
+        attributeSet.thumbnailData = UIImageJPEGRepresentation(
+        UIImage(named:sharedInstance.selectedEvent as String)! , 0.9)
+        attributeSet.supportsPhoneCall = true
         
-    }
+        return attributeSet
 
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

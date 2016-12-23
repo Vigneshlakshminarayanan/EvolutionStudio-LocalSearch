@@ -20,7 +20,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PlayStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LocalSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -57,7 +57,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="z7Q-mN-0EV" customClass="CollectionViewCell" customModule="PlayStore" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="z7Q-mN-0EV" customClass="CollectionViewCell" customModule="LocalSearch" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -118,7 +118,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="HfX-XD-gN0" kind="push" id="0SX-cM-jqO"/>
+                                    <action selector="continueBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jFp-0Y-YBt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -152,7 +152,7 @@
         <!--Verticals-->
         <scene sceneID="Qqi-HE-4mO">
             <objects>
-                <viewController id="HfX-XD-gN0" customClass="VerticalsViewController" customModule="PlayStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VerticalsController" id="HfX-XD-gN0" customClass="VerticalsViewController" customModule="LocalSearch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YCl-rc-LBC"/>
                         <viewControllerLayoutGuide type="bottom" id="9J9-Jp-oSX"/>
@@ -183,7 +183,7 @@
                                             <constraint firstAttribute="width" constant="60" id="7yL-22-Mke"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="NanumGothicBold" family="NanumGothic" pointSize="15"/>
-                                        <state key="normal" title="Drive">
+                                        <state key="normal" title="Index">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -192,6 +192,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <action selector="addToIndex:" destination="HfX-XD-gN0" eventType="touchUpInside" id="za4-oy-ou1"/>
                                             <action selector="showDirections:" destination="HfX-XD-gN0" eventType="touchUpInside" id="MfK-32-jzd"/>
                                         </connections>
                                     </button>
@@ -252,13 +253,7 @@
                             <constraint firstItem="VCI-Aj-1kO" firstAttribute="height" secondItem="pLb-8e-xPE" secondAttribute="height" id="BNM-V6-zNY"/>
                             <constraint firstItem="rTF-6A-xgY" firstAttribute="leading" secondItem="pLb-8e-xPE" secondAttribute="leadingMargin" constant="5" id="CMu-eQ-c2S"/>
                             <constraint firstItem="VCI-Aj-1kO" firstAttribute="width" secondItem="pLb-8e-xPE" secondAttribute="width" id="HXN-x9-bkG"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rTF-6A-xgY" secondAttribute="trailing" constant="20" id="csJ-6X-WwU">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="rTF-6A-xgY" secondAttribute="trailing" constant="20" id="csJ-6X-WwU"/>
                             <constraint firstItem="VCI-Aj-1kO" firstAttribute="centerY" secondItem="pLb-8e-xPE" secondAttribute="centerY" id="mEY-NP-nMG"/>
                         </constraints>
                     </view>

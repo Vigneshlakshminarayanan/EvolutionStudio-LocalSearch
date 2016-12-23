@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B4B6EEE1E0CF9F5007E9D17 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4B6EED1E0CF9F5007E9D17 /* CoreSpotlight.framework */; };
+		1B4B6F131E0CFD73007E9D17 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4B6F121E0CFD73007E9D17 /* CoreData.framework */; };
+		1B4B6F161E0CFFF1007E9D17 /* FavouritesEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B6F141E0CFFF1007E9D17 /* FavouritesEntity+CoreDataProperties.swift */; };
+		1B4B6F171E0CFFF1007E9D17 /* FavouritesEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4B6F151E0CFFF1007E9D17 /* FavouritesEntity.swift */; };
+		1B4B6F191E0D248A007E9D17 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4B6F181E0D248A007E9D17 /* MobileCoreServices.framework */; };
 		1B512CF21E0A7F3F004C7A52 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B512CF11E0A7F3F004C7A52 /* AppDelegate.swift */; };
 		1B512CF41E0A7F3F004C7A52 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B512CF31E0A7F3F004C7A52 /* ViewController.swift */; };
 		1B512CF71E0A7F3F004C7A52 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B512CF51E0A7F3F004C7A52 /* Main.storyboard */; };
@@ -27,7 +32,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1B512CEE1E0A7F3F004C7A52 /* PlayStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B4B6EED1E0CF9F5007E9D17 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
+		1B4B6F121E0CFD73007E9D17 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1B4B6F141E0CFFF1007E9D17 /* FavouritesEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavouritesEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1B4B6F151E0CFFF1007E9D17 /* FavouritesEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouritesEntity.swift; sourceTree = "<group>"; };
+		1B4B6F181E0D248A007E9D17 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1B512CEE1E0A7F3F004C7A52 /* LocalSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B512CF11E0A7F3F004C7A52 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B512CF31E0A7F3F004C7A52 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1B512CF61E0A7F3F004C7A52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -53,6 +63,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B4B6F191E0D248A007E9D17 /* MobileCoreServices.framework in Frameworks */,
+				1B4B6F131E0CFD73007E9D17 /* CoreData.framework in Frameworks */,
+				1B4B6EEE1E0CF9F5007E9D17 /* CoreSpotlight.framework in Frameworks */,
 				1BB6EE041E0BB11600E1A90C /* MapKit.framework in Frameworks */,
 				1BB6EDFC1E0B9E6A00E1A90C /* CoreLocation.framework in Frameworks */,
 			);
@@ -61,10 +74,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B4B6F1A1E0D4B8E007E9D17 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1BB6EDFF1E0BAA8300E1A90C /* SharedInstance.swift */,
+				1B4B6F141E0CFFF1007E9D17 /* FavouritesEntity+CoreDataProperties.swift */,
+				1B4B6F151E0CFFF1007E9D17 /* FavouritesEntity.swift */,
+				1B512CF81E0A7F3F004C7A52 /* PlayStore.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1B4B6F1B1E0D4B96007E9D17 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1B512D131E0A8ACC004C7A52 /* CollectionViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		1B4B6F1C1E0D4B9B007E9D17 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1B512CF31E0A7F3F004C7A52 /* ViewController.swift */,
+				1BB6EE011E0BAEE500E1A90C /* VerticalsViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1B4B6F1D1E0D4BCF007E9D17 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				1BB6EDFB1E0B9E6A00E1A90C /* CoreLocation.framework */,
+				1BB6EE031E0BB11600E1A90C /* MapKit.framework */,
+				1B4B6EED1E0CF9F5007E9D17 /* CoreSpotlight.framework */,
+				1B4B6F121E0CFD73007E9D17 /* CoreData.framework */,
+				1B4B6F181E0D248A007E9D17 /* MobileCoreServices.framework */,
+			);
+			name = Framework;
+			sourceTree = "<group>";
+		};
+		1B4B6F1E1E0D4BFB007E9D17 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				1B512CFD1E0A7F3F004C7A52 /* LaunchScreen.storyboard */,
+				1B512CF51E0A7F3F004C7A52 /* Main.storyboard */,
+			);
+			name = StoryBoard;
+			sourceTree = "<group>";
+		};
 		1B512CE51E0A7F3F004C7A52 = {
 			isa = PBXGroup;
 			children = (
-				1B512CF01E0A7F3F004C7A52 /* PlayStore */,
+				1B512CF01E0A7F3F004C7A52 /* LocalSearch */,
 				1B512CEF1E0A7F3F004C7A52 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,34 +134,31 @@
 		1B512CEF1E0A7F3F004C7A52 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1B512CEE1E0A7F3F004C7A52 /* PlayStore.app */,
+				1B512CEE1E0A7F3F004C7A52 /* LocalSearch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1B512CF01E0A7F3F004C7A52 /* PlayStore */ = {
+		1B512CF01E0A7F3F004C7A52 /* LocalSearch */ = {
 			isa = PBXGroup;
 			children = (
-				1BB6EDFF1E0BAA8300E1A90C /* SharedInstance.swift */,
+				1B4B6F1C1E0D4B9B007E9D17 /* Controller */,
+				1B4B6F1B1E0D4B96007E9D17 /* View */,
+				1B4B6F1A1E0D4B8E007E9D17 /* Model */,
 				1B512CF11E0A7F3F004C7A52 /* AppDelegate.swift */,
-				1B512CF31E0A7F3F004C7A52 /* ViewController.swift */,
-				1BB6EE011E0BAEE500E1A90C /* VerticalsViewController.swift */,
-				1B512D131E0A8ACC004C7A52 /* CollectionViewCell.swift */,
-				1B512CF51E0A7F3F004C7A52 /* Main.storyboard */,
-				1B512CFB1E0A7F3F004C7A52 /* Assets.xcassets */,
-				1B512CFD1E0A7F3F004C7A52 /* LaunchScreen.storyboard */,
 				1B512D001E0A7F3F004C7A52 /* Info.plist */,
+				1B4B6F1E1E0D4BFB007E9D17 /* StoryBoard */,
+				1B4B6F1D1E0D4BCF007E9D17 /* Framework */,
 				1B512D0C1E0A8082004C7A52 /* Fonts */,
-				1B512CF81E0A7F3F004C7A52 /* PlayStore.xcdatamodeld */,
 			);
+			name = LocalSearch;
 			path = PlayStore;
 			sourceTree = "<group>";
 		};
 		1B512D0C1E0A8082004C7A52 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				1BB6EE031E0BB11600E1A90C /* MapKit.framework */,
-				1BB6EDFB1E0B9E6A00E1A90C /* CoreLocation.framework */,
+				1B512CFB1E0A7F3F004C7A52 /* Assets.xcassets */,
 				1B512D0D1E0A80C7004C7A52 /* AvenirNextLTPro-Bold.otf */,
 				1B512D0E1E0A80C7004C7A52 /* AvenirNextLTPro-Demi.otf */,
 				1B512D0F1E0A80C7004C7A52 /* AvenirNextLTPro-DemiCn.otf */,
@@ -113,9 +172,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1B512CED1E0A7F3F004C7A52 /* PlayStore */ = {
+		1B512CED1E0A7F3F004C7A52 /* LocalSearch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1B512D031E0A7F3F004C7A52 /* Build configuration list for PBXNativeTarget "PlayStore" */;
+			buildConfigurationList = 1B512D031E0A7F3F004C7A52 /* Build configuration list for PBXNativeTarget "LocalSearch" */;
 			buildPhases = (
 				1B512CEA1E0A7F3F004C7A52 /* Sources */,
 				1B512CEB1E0A7F3F004C7A52 /* Frameworks */,
@@ -125,9 +184,9 @@
 			);
 			dependencies = (
 			);
-			name = PlayStore;
+			name = LocalSearch;
 			productName = PlayStore;
-			productReference = 1B512CEE1E0A7F3F004C7A52 /* PlayStore.app */;
+			productReference = 1B512CEE1E0A7F3F004C7A52 /* LocalSearch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -145,7 +204,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1B512CE91E0A7F3F004C7A52 /* Build configuration list for PBXProject "PlayStore" */;
+			buildConfigurationList = 1B512CE91E0A7F3F004C7A52 /* Build configuration list for PBXProject "LocalSearch" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -158,7 +217,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1B512CED1E0A7F3F004C7A52 /* PlayStore */,
+				1B512CED1E0A7F3F004C7A52 /* LocalSearch */,
 			);
 		};
 /* End PBXProject section */
@@ -192,6 +251,8 @@
 				1BB6EE021E0BAEE600E1A90C /* VerticalsViewController.swift in Sources */,
 				1B512D141E0A8ACC004C7A52 /* CollectionViewCell.swift in Sources */,
 				1B512CFA1E0A7F3F004C7A52 /* PlayStore.xcdatamodeld in Sources */,
+				1B4B6F161E0CFFF1007E9D17 /* FavouritesEntity+CoreDataProperties.swift in Sources */,
+				1B4B6F171E0CFFF1007E9D17 /* FavouritesEntity.swift in Sources */,
 				1BB6EE001E0BAA8300E1A90C /* SharedInstance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,9 +370,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = PlayStore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trident.demoApp.PlayStore;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LocalSearch;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -322,9 +384,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = PlayStore/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trident.demoApp.PlayStore;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LocalSearch;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -332,7 +395,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1B512CE91E0A7F3F004C7A52 /* Build configuration list for PBXProject "PlayStore" */ = {
+		1B512CE91E0A7F3F004C7A52 /* Build configuration list for PBXProject "LocalSearch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1B512D011E0A7F3F004C7A52 /* Debug */,
@@ -341,7 +404,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1B512D031E0A7F3F004C7A52 /* Build configuration list for PBXNativeTarget "PlayStore" */ = {
+		1B512D031E0A7F3F004C7A52 /* Build configuration list for PBXNativeTarget "LocalSearch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1B512D041E0A7F3F004C7A52 /* Debug */,
