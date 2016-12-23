@@ -28,6 +28,7 @@ Make a local search to find a list of verticals matching your category
 Displays the search query on **MKMapView** & is indexed to HomeScreen Search.
 
 **let activity = NSUserActivity(activityType:String(format: "%@",date))**
+
 **activity.keywords = [sharedInstance.selectedEvent as String, titleLabl.text!]**
 
 A Phonecall can be made to the vertical from HomeScreen
