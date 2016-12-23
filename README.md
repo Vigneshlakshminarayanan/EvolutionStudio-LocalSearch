@@ -7,7 +7,7 @@ EvolutionStudio has thought about bringing you the ultimate solution for your pr
 ## Code Example
 A list of essential verticals around you.
 
-**let titleCollection:NSArray = ["Movies","Education","Hospital","ATM","Petrol Bunk","Restaurants","Bar","Coffee","Dinner"]**
+**let titleCollection:NSArray = ["Movies", "Education", "Hospital", "ATM", "Petrol Bunk", "Restaurants", "Bar", "Coffee", "Dinner"]**
 
 Make a local search to find a list of verticals matching your category
 
