@@ -9,9 +9,9 @@ EvolutionStudio has thought about bringing you the ultimate solution for your pr
 
 [![Simulator Screen Shot 22-Dec-2016, 8.51.52 PM.png](https://s30.postimg.org/4hzt58m41/Simulator_Screen_Shot_22_Dec_2016_8_51_52_PM.png)](https://postimg.org/image/9gnbjrpwt/)
 
-Displays a list of verticals nearby your location that matches your cateogory
+Displays a list of verticals nearby your location that matches your cateogory. Searches can be indexed to Spotlight search & can be accessed from homescreen.
 
-[![Simulator Screen Shot 23-Dec-2016, 7.18.59 AM.png](https://s27.postimg.org/ont93h1dv/Simulator_Screen_Shot_23_Dec_2016_7_18_59_AM.png)](https://postimg.org/image/ltq3q0z7j/)
+[![Simulator Screen Shot 23-Dec-2016, 7.47.26 PM.png](https://s29.postimg.org/h5qqds807/Simulator_Screen_Shot_23_Dec_2016_7_47_26_PM.png)](https://postimg.org/image/78fpkq0eb/)
 
 ## Code Example
 A list of essential verticals around you.
