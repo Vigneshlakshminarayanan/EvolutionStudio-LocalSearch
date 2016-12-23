@@ -5,6 +5,9 @@ How about when you are lost in middle of the town & you are in need of essential
 How convenient would it be, when you get all the information you request for at a click of a button. 
 EvolutionStudio has thought about bringing you the ultimate solution for your problem through this LocalSearch App.
 
+## Demo
+[![LocalSearchGIF.gif](https://s23.postimg.org/l0sk7xt57/Local_Search_GIF.gif)](https://postimg.org/image/dxkosbnpj/)
+
 ## ScreenShot
 
 [![Simulator Screen Shot 22-Dec-2016, 8.51.52 PM.png](https://s30.postimg.org/4hzt58m41/Simulator_Screen_Shot_22_Dec_2016_8_51_52_PM.png)](https://postimg.org/image/9gnbjrpwt/)
