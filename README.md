@@ -16,11 +16,11 @@ Displays a list of verticals nearby your location that matches your cateogory. S
 ## Code Example
 A list of essential verticals around you.
 
-**let titleCollection:NSArray = ["Movies", "Education", "Hospital", "ATM", "Petrol Bunk", "Restaurants", "Bar", "Coffee", "Dinner"]**
+**let listOfVerticals:NSArray = ["Movies", "Education", "Hospital", "ATM", "Petrol Bunk", "Restaurants", "Bar", "Coffee", "Dinner"]**
 
 Make a local search to find a list of verticals matching your category
 
-**localSearchRequest.naturalLanguageQuery = sharedIns.cateogorySelected as String**
+**localSearchRequest.naturalLanguageQuery = sharedInstance.selectedEvent as String**
 
 Displays a list of all verticals on **MKMapView**
 
