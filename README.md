@@ -19,18 +19,22 @@ Displays a list of verticals nearby your location that matches your cateogory. S
 ## Code Example
 A list of essential categories around you.
 
-**let listOfVerticals:NSArray = ["Movies", "Education", "Hospital", "ATM", "Petrol Bunk", "Restaurants", "Bar", "Coffee", "Dinner"]**
+```
+let listOfVerticals:NSArray = ["Movies", "Education", "Hospital", "ATM", "Petrol Bunk", "Restaurants", "Bar", "Coffee", "Dinner"]
 
+```
 Make a local search to find a list of verticals matching your category
 
-**localSearchRequest.naturalLanguageQuery = sharedInstance.selectedEvent as String**
+```
+localSearchRequest.naturalLanguageQuery = sharedInstance.selectedEvent as String
 
+```
 Displays the search query on **MKMapView** & is indexed to HomeScreen Search.
+```
+let activity = NSUserActivity(activityType:String(format: "%@",date))
+activity.keywords = [sharedInstance.selectedEvent as String, titleLabl.text!]
 
-**let activity = NSUserActivity(activityType:String(format: "%@",date))**
-
-**activity.keywords = [sharedInstance.selectedEvent as String, titleLabl.text!]**
-
+```
 A Phonecall can be made to the vertical from HomeScreen
 
 ## Installation
