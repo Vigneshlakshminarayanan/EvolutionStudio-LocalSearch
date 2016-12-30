@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LAk-lG-ykw">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -17,7 +16,7 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--LocalSearch-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LocalSearch" customModuleProvider="target" sceneMemberID="viewController">
@@ -139,7 +138,15 @@
                             <constraint firstItem="4ud-pX-DuD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="shW-h9-zgI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="lsG-r1-5nw"/>
+                    <navigationItem key="navigationItem" title="LocalSearch" id="lsG-r1-5nw">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="T5d-lW-6iE">
+                            <inset key="imageInsets" minX="0.0" minY="0.0" maxX="1" maxY="0.0"/>
+                            <color key="tintColor" red="1" green="0.43441106797142925" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="addCategory:" destination="BYZ-38-t0r" id="gPP-l7-nRZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="descLabl" destination="1qp-xd-6G0" id="ylw-fF-qly"/>
                         <outlet property="itemsCollectionVw" destination="B80-gI-Fyz" id="0zr-nV-S5r"/>
@@ -203,13 +210,13 @@
                                         <fontDescription key="fontDescription" name="NanumGothic" family="NanumGothic" pointSize="10"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9o-Ey-Uhx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u9o-Ey-Uhx">
                                         <rect key="frame" x="17" y="166" width="177" height="21"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="10"/>
                                         <color key="textColor" red="0.56470588235294117" green="0.56862745098039214" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Phone" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yx7-rd-xRX">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yx7-rd-xRX">
                                         <rect key="frame" x="460" y="158" width="81" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="eNg-O1-m29"/>
@@ -218,6 +225,14 @@
                                         <color key="textColor" red="0.56470588235294117" green="0.58431372549019611" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="uco-Tr-sNB">
+                                        <rect key="frame" x="245" y="166" width="39" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="10" id="b5w-6W-Kfx"/>
+                                        </constraints>
+                                        <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="currentPageIndicatorTintColor" red="1" green="0.54032051820000004" blue="0.83285055119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    </pageControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -236,6 +251,7 @@
                                     <constraint firstItem="TfK-1G-8dH" firstAttribute="trailing" secondItem="xQf-Dk-4hl" secondAttribute="leading" constant="-10" id="WdZ-UG-QAn"/>
                                     <constraint firstItem="jqC-TZ-jNz" firstAttribute="top" secondItem="rTF-6A-xgY" secondAttribute="top" constant="5" id="d9N-nF-5Qv"/>
                                     <constraint firstItem="u9o-Ey-Uhx" firstAttribute="trailing" secondItem="TfK-1G-8dH" secondAttribute="trailing" id="duR-rk-Rdv"/>
+                                    <constraint firstAttribute="bottom" secondItem="uco-Tr-sNB" secondAttribute="bottom" constant="2" id="fLr-KL-krG"/>
                                     <constraint firstItem="u9o-Ey-Uhx" firstAttribute="leading" secondItem="TfK-1G-8dH" secondAttribute="leading" id="hqj-sh-CHl"/>
                                     <constraint firstItem="xQf-Dk-4hl" firstAttribute="top" secondItem="jqC-TZ-jNz" secondAttribute="top" constant="5" id="xJE-AA-z2S"/>
                                 </constraints>
@@ -250,19 +266,24 @@
                         <constraints>
                             <constraint firstItem="9J9-Jp-oSX" firstAttribute="top" secondItem="rTF-6A-xgY" secondAttribute="bottom" constant="23" id="1fd-um-V6m"/>
                             <constraint firstItem="VCI-Aj-1kO" firstAttribute="centerX" secondItem="pLb-8e-xPE" secondAttribute="centerX" id="2b7-Zq-VQk"/>
+                            <constraint firstItem="uco-Tr-sNB" firstAttribute="width" secondItem="pLb-8e-xPE" secondAttribute="width" id="4Ae-yi-0Ub"/>
                             <constraint firstItem="VCI-Aj-1kO" firstAttribute="height" secondItem="pLb-8e-xPE" secondAttribute="height" id="BNM-V6-zNY"/>
                             <constraint firstItem="rTF-6A-xgY" firstAttribute="leading" secondItem="pLb-8e-xPE" secondAttribute="leadingMargin" constant="5" id="CMu-eQ-c2S"/>
+                            <constraint firstItem="uco-Tr-sNB" firstAttribute="centerX" secondItem="pLb-8e-xPE" secondAttribute="centerX" id="G11-Uo-A7i"/>
                             <constraint firstItem="VCI-Aj-1kO" firstAttribute="width" secondItem="pLb-8e-xPE" secondAttribute="width" id="HXN-x9-bkG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rTF-6A-xgY" secondAttribute="trailing" constant="20" id="csJ-6X-WwU"/>
                             <constraint firstItem="VCI-Aj-1kO" firstAttribute="centerY" secondItem="pLb-8e-xPE" secondAttribute="centerY" id="mEY-NP-nMG"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Verticals" id="Juq-TO-wFK"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addrsVw" destination="TfK-1G-8dH" id="6GH-IO-Dk2"/>
                         <outlet property="containerVw" destination="rTF-6A-xgY" id="7fT-9z-Z7G"/>
                         <outlet property="distnaceLbl" destination="u9o-Ey-Uhx" id="RXk-5o-vAa"/>
                         <outlet property="mapVw" destination="VCI-Aj-1kO" id="MyK-OE-hB4"/>
+                        <outlet property="pageVw" destination="uco-Tr-sNB" id="9ci-CP-HnV"/>
                         <outlet property="phoneNumbe" destination="yx7-rd-xRX" id="Hug-V4-gDl"/>
                         <outlet property="titleLabl" destination="jqC-TZ-jNz" id="x0c-AK-rbL"/>
                     </connections>

@@ -32,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B4766011E10E6CB00946728 /* LocalSearch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LocalSearch.entitlements; sourceTree = SOURCE_ROOT; };
 		1B4B6EED1E0CF9F5007E9D17 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		1B4B6F121E0CFD73007E9D17 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1B4B6F141E0CFFF1007E9D17 /* FavouritesEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavouritesEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 				1BB6EDFF1E0BAA8300E1A90C /* SharedInstance.swift */,
 				1B4B6F141E0CFFF1007E9D17 /* FavouritesEntity+CoreDataProperties.swift */,
 				1B4B6F151E0CFFF1007E9D17 /* FavouritesEntity.swift */,
-				1B512CF81E0A7F3F004C7A52 /* PlayStore.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -142,20 +142,22 @@
 		1B512CF01E0A7F3F004C7A52 /* LocalSearch */ = {
 			isa = PBXGroup;
 			children = (
+				1B99018F1E163F9400380574 /* Entitlements */,
 				1B4B6F1C1E0D4B9B007E9D17 /* Controller */,
 				1B4B6F1B1E0D4B96007E9D17 /* View */,
 				1B4B6F1A1E0D4B8E007E9D17 /* Model */,
 				1B512CF11E0A7F3F004C7A52 /* AppDelegate.swift */,
 				1B512D001E0A7F3F004C7A52 /* Info.plist */,
+				1B512CF81E0A7F3F004C7A52 /* PlayStore.xcdatamodeld */,
 				1B4B6F1E1E0D4BFB007E9D17 /* StoryBoard */,
 				1B4B6F1D1E0D4BCF007E9D17 /* Framework */,
-				1B512D0C1E0A8082004C7A52 /* Fonts */,
+				1B512D0C1E0A8082004C7A52 /* Fonts & Images */,
 			);
 			name = LocalSearch;
 			path = PlayStore;
 			sourceTree = "<group>";
 		};
-		1B512D0C1E0A8082004C7A52 /* Fonts */ = {
+		1B512D0C1E0A8082004C7A52 /* Fonts & Images */ = {
 			isa = PBXGroup;
 			children = (
 				1B512CFB1E0A7F3F004C7A52 /* Assets.xcassets */,
@@ -166,7 +168,15 @@
 				1B512D071E0A8076004C7A52 /* NanumGothicBold.ttf */,
 				1B512D081E0A8076004C7A52 /* NanumGothicExtraBold.ttf */,
 			);
-			name = Fonts;
+			name = "Fonts & Images";
+			sourceTree = "<group>";
+		};
+		1B99018F1E163F9400380574 /* Entitlements */ = {
+			isa = PBXGroup;
+			children = (
+				1B4766011E10E6CB00946728 /* LocalSearch.entitlements */,
+			);
+			name = Entitlements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +211,12 @@
 				TargetAttributes = {
 					1B512CED1E0A7F3F004C7A52 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = EA88Y3R72N;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -369,10 +385,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = LocalSearch.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PlayStore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.trident.demoApp.PlayStore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demoApp.LocalSearch;
 				PRODUCT_NAME = LocalSearch;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -383,10 +401,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = LocalSearch.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PlayStore/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.trident.demoApp.PlayStore;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demoApp.LocalSearch;
 				PRODUCT_NAME = LocalSearch;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

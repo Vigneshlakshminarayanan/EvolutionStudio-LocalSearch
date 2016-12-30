@@ -12,7 +12,7 @@ import CoreData
 import CoreSpotlight
 import MobileCoreServices
 
-class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResultsControllerDelegate {
+class VerticalsViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate,UIScrollViewDelegate {
 
     var pointAnnotation:MKPointAnnotation!
     var pinAnnotationView:MKPinAnnotationView!
@@ -20,6 +20,7 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResu
     var searchResults = NSMutableArray()  //** MKLocalSearch Results Storage
     let sharedInstance = SharedInstance.sharedInstance //** Shared Instance
     
+    @IBOutlet weak var pageVw: UIPageControl!
     @IBOutlet weak var mapVw: MKMapView!
     @IBOutlet weak var containerVw: UIView!
     @IBOutlet weak var titleLabl: UILabel!  //** Base Container Title Label
@@ -65,7 +66,7 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResu
                     let  favts = results as! [FavouritesEntity]
                 
                     for entity in favts {
-                    print(entity.address)
+                    
                     titleLabl.text = entity.title
                     addrsVw.text = entity.address
                    
@@ -83,13 +84,13 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResu
                     self.mapVw.centerCoordinate = self.pointAnnotation.coordinate
                     self.mapVw.addAnnotation(self.pinAnnotationView.annotation!)
                     containerVw.alpha = 0.8
+                    pageVw.hidden = true
                 }
             } catch let error as NSError {
                 print(error.description)
             }
         }
         
-        // Do any additional setup after loading the view.
     }
     
     func makeALocalSearch() {
@@ -109,6 +110,8 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResu
                 }
                 
                 self.showInMap()
+                self.setupHorizontalScroll()
+
             }}
     }
 
@@ -116,7 +119,9 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResu
     func showInMap() {
         
         print("\(searchResults.count) results found for \(sharedInstance.selectedEvent)")
-
+        pageVw.numberOfPages = self.searchResults.count
+        pageVw.currentPage = 0
+        
         for mapItem in self.searchResults {
           
             let currentMapItem = mapItem as! MKMapItem
@@ -161,17 +166,16 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResu
         
         view.canShowCallout = true
         titleLabl.text = (view.annotation?.title)!
-        
+        var i:Int = 0
         for mapItem in self.searchResults {
-           
+           i = i+1
             let currentMapItem = mapItem as! MKMapItem
             if currentMapItem.name == (view.annotation?.title)! {
                     addrsVw.text = currentMapItem.placemark.title
-                
+                    pageVw.currentPage = i
                     let firstLoc = CLLocation(latitude: sharedInstance.currentLocationLatValue, longitude: sharedInstance.currentLocationLongValue)
                     let secondLoc = CLLocation(latitude: currentMapItem.placemark.coordinate.latitude, longitude:currentMapItem.placemark.coordinate.longitude)
                     let distance = firstLoc.distanceFromLocation(secondLoc)
-                    //print("Distance Between Me & Res\(distance/1000) kms")
                     phoneNumbe.text = String(format: "%.1f kms", distance/1000)
                 
                         if (currentMapItem.phoneNumber != nil) {
@@ -290,14 +294,84 @@ class VerticalsViewController: UIViewController,MKMapViewDelegate, NSFetchedResu
             if (distnaceLbl.text != nil) {
                 attributeSet.phoneNumbers = [distnaceLbl.text! as String]
             }
-            
+        
         attributeSet.contentDescription = "\(addrsVw.text)\n\(distnaceLbl.text)"
         attributeSet.thumbnailData = UIImageJPEGRepresentation(
-        UIImage(named:sharedInstance.selectedEvent as String)! , 0.9)
+        UIImage(named:"EvolutionStudio")! , 0.9)
         attributeSet.supportsPhoneCall = true
         
         return attributeSet
 
+    }
+    
+    func setupHorizontalScroll() {
+        
+        let imageWidth:CGFloat = self.view.frame.size.width-20
+        let imageHeight:CGFloat = 66
+        var xPosition:CGFloat = 0
+        var scrollViewSize:CGFloat=0
+        let scrollVw = UIScrollView()
+        scrollVw.frame = CGRectMake(containerVw.frame.origin.x, containerVw.frame.origin.y + 50, containerVw.frame.size.width, containerVw.frame.size.height-50)
+        scrollVw.pagingEnabled = true
+        scrollVw.showsHorizontalScrollIndicator = false
+        scrollVw.userInteractionEnabled = true
+        scrollVw.backgroundColor = UIColor.clearColor()
+        
+        for mapItem in self.searchResults {
+            
+            let currentMapItem = mapItem as! MKMapItem
+            let latV:Double = currentMapItem.placemark.coordinate.latitude
+            let longV:Double = currentMapItem.placemark.coordinate.longitude
+            self.pointAnnotation = MKPointAnnotation()
+            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude:latV, longitude:longV)
+            self.pointAnnotation.title = currentMapItem.placemark.name
+            self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
+            
+            self.mapVw.centerCoordinate = self.pointAnnotation.coordinate
+            self.mapVw.addAnnotation(self.pinAnnotationView.annotation!)
+            mapVw.selectAnnotation(self.pinAnnotationView.annotation!, animated: true)
+            
+            let myImageView:UIImageView = UIImageView()
+            myImageView.backgroundColor = UIColor.clearColor()
+            
+            myImageView.frame.size.width = imageWidth
+            myImageView.frame.size.height = imageHeight
+            myImageView.frame.origin.x = xPosition
+            myImageView.frame.origin.y = 10
+            
+            scrollVw.addSubview(myImageView)
+            xPosition += imageWidth
+            scrollViewSize += imageWidth
+        }
+        
+        scrollVw.contentSize = CGSize(width: scrollViewSize, height: imageHeight)
+        scrollVw.delegate = self
+        containerVw.userInteractionEnabled = true
+        self.view.addSubview(scrollVw)
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        
+        let  xPos:CGFloat = (scrollView.contentOffset.x)/(self.view.frame.size.width-20);
+        let myIntValue:Int = Int(xPos)
+        pageVw.currentPage = myIntValue
+        let filteredVal:NSMutableArray = NSMutableArray()
+        filteredVal.addObject(self.searchResults.objectAtIndex(myIntValue))
+        
+        for mapItem in filteredVal{
+            
+            let currentMapItem = mapItem as! MKMapItem
+            let latV:Double = currentMapItem.placemark.coordinate.latitude
+            let longV:Double = currentMapItem.placemark.coordinate.longitude
+            self.pointAnnotation = MKPointAnnotation()
+            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude:latV, longitude:longV)
+            self.pointAnnotation.title = currentMapItem.placemark.name
+            self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
+            
+            self.mapVw.centerCoordinate = self.pointAnnotation.coordinate
+            self.mapVw.addAnnotation(self.pinAnnotationView.annotation!)
+            mapVw.selectAnnotation(self.pinAnnotationView.annotation!, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {
