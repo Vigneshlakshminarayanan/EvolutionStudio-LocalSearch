@@ -6,7 +6,7 @@ How convenient would it be, when you get all the information you request for at 
 EvolutionStudio has thought about bringing you the ultimate solution for your problem through this LocalSearch App.
 
 ## Demo
-[![LocalSearchGIF.gif](https://s23.postimg.org/l0sk7xt57/Local_Search_GIF.gif)](https://postimg.org/image/dxkosbnpj/)
+[![video-demo.gif](https://s29.postimg.org/k1ps32i7b/video_demo.gif)](https://postimg.org/image/clqih9uhv/)
 
 ## ScreenShot
 
